@@ -118,7 +118,7 @@ class DNSCollector(Collector):
         r = None
         transport = "NONE"
         # mark the start time and do the request
-        start = time.time()
+        start = time.perf_counter()
         try:
             r, transport = self.get_dns_response(
                 protocol=str(self.config.protocol),
@@ -169,7 +169,7 @@ class DNSCollector(Collector):
             self.increase_failure_reason_metric(failure_reason=reason, labels=self.labels)
 
         # clock it
-        qtime = time.time() - start
+        qtime = time.perf_counter() - start
 
         # did we get a response?
         if r is None:
